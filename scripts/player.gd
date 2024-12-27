@@ -76,7 +76,7 @@ func _physics_process(delta: float) -> void:
 			jump_pressed = true
 			jump_buffer_timer.start(jump_buffer_time)
 	
-	if Input.is_action_just_released("jump"):
+	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= jump_slow_multiplier
 		
 
