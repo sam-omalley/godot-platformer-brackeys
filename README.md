@@ -17,9 +17,12 @@ This platformer has been created following Brackey's Godot tutorial:
 - [ ] Add health system and damage
 	- [ ] Game Manager should properly manage and own death state
 - [ ] Add sound effects for a hit
+- [ ] Enemy kill
 - [ ] Programatically extend the background plate
 - [ ] Spawn enemies when close, not on load
 - [ ] Add a completion point and another level
+- [ ] Move music management into GameManager
+- [ ] Power-ups
 
 # Coding Adventures
 
