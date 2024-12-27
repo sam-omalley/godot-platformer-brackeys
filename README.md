@@ -10,6 +10,7 @@ This platformer has been created following Brackey's Godot tutorial:
 
 ## ToDo
 
+- [x] Add parallax to tiles
 - [ ] Add particle emitters
 	- [ ] On landing
 	- [ ] While sprinting
