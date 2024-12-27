@@ -368,6 +368,9 @@ script = ExtResource("4_qwemu")
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_d0h2s")
 bus = &"SFX"
+script = ExtResource("4_qwemu")
+min_shift = 0.5
+max_shift = 0.5
 
 [connection signal="finished" from="JumpSound" to="JumpSound" method="_on_finished"]
 [connection signal="finished" from="DeathSound" to="DeathSound" method="_on_finished"]
