@@ -72,11 +72,14 @@ func _physics_process(delta: float) -> void:
 		
 
 	# Get the input direction and handle the movement/deceleration.
-	var direction: int = Input.get_axis("move_left", "move_right")
+	var direction: float = Input.get_axis("move_left", "move_right")
 	var is_sprinting: bool = Input.is_action_pressed("sprint")
 	
-	# Flip the sprite
-	if direction != 0:
+	# Flip the sprite. Checking equality for a float is naughty, but in this
+	# case the consequence of it being wrong is very low. It will just flip
+	# the sprite to be forward facing when at rest. In practice, it doesn't
+	# seem to ever happen anyway, since the 0.0 value is set from get_axis above.
+	if direction != 0.0:
 		animated_sprite.flip_h = (direction < 0);
 	
 	# Play animations
