@@ -86,7 +86,6 @@ tile_set = ExtResource("1_le51j")
 
 [node name="Player" parent="." instance=ExtResource("1_8upnx")]
 position = Vector2(41, 43)
-jump_slow = 0.8
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)

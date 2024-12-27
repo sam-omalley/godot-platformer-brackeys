@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 130.0
+@export var sprint_speed_multiplier: float = 1.3
 @export var jump_force: float = -300.0
-@export var jump_slow: float = 0.4
+@export var jump_slow_multiplier: float = 0.8
 @export var coyote_time: float = 0.2
 @export var jump_buffer_time: float = 0.1
 
@@ -67,11 +68,12 @@ func _physics_process(delta: float) -> void:
 			jump_buffer_timer.start(jump_buffer_time)
 	
 	if Input.is_action_just_released("jump"):
-		velocity.y *= jump_slow
+		velocity.y *= jump_slow_multiplier
 		
 
 	# Get the input direction and handle the movement/deceleration.
-	var direction := Input.get_axis("move_left", "move_right")
+	var direction: int = Input.get_axis("move_left", "move_right")
+	var is_sprinting: bool = Input.is_action_pressed("sprint")
 	
 	# Flip the sprite
 	if direction != 0:
@@ -82,7 +84,10 @@ func _physics_process(delta: float) -> void:
 		if direction == 0:
 			animated_sprite.play("idle")
 		else:
-			animated_sprite.play("run")
+			if is_sprinting:
+				animated_sprite.play("sprint")
+			else:
+				animated_sprite.play("run")
 	elif not can_double_jump: # Has already double jumped
 		animated_sprite.play("roll")
 	else:
@@ -91,6 +96,10 @@ func _physics_process(delta: float) -> void:
 	# Apply movement
 	if direction:
 		velocity.x = direction * movement_speed
+		
+		# If sprinting, add multiplier to speed
+		if is_sprinting:
+			velocity.x *= sprint_speed_multiplier
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	
