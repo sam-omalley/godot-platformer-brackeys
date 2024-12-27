@@ -340,25 +340,25 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5yfjk"]
-radius = 5.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_es65h"]
+radius = 4.0
+height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_aimol")
+jump_slow_multiplier = 0.4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_qnev1")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_5yfjk")
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_es65h")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_gpb2n")
