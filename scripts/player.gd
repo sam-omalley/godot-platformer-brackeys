@@ -9,6 +9,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var jump_sound: AudioStreamPlayer2D = $JumpSound
+@onready var death_sound: AudioStreamPlayer2D = $DeathSound
+
 
 var was_on_floor: bool = false
 var can_coyote_jump: bool = false
@@ -16,7 +18,14 @@ var jump_pressed: bool = false
 var can_double_jump: bool = false
 var jump_buffer_timer: Timer
 
+func die() -> void:
+	velocity.y = jump_force
+	animated_sprite.play("death")
+	animated_sprite = null
+	death_sound.play()
+
 func _ready() -> void:
+	GameManager.dead.connect(die)
 	jump_buffer_timer = Timer.new()
 	jump_buffer_timer.one_shot = true
 	jump_buffer_timer.timeout.connect(func(): jump_pressed = false)
@@ -75,26 +84,27 @@ func _physics_process(delta: float) -> void:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	var is_sprinting: bool = Input.is_action_pressed("sprint")
 	
-	# Flip the sprite. Checking equality for a float is naughty, but in this
-	# case the consequence of it being wrong is very low. It will just flip
-	# the sprite to be forward facing when at rest. In practice, it doesn't
-	# seem to ever happen anyway, since the 0.0 value is set from get_axis above.
-	if direction != 0.0:
-		animated_sprite.flip_h = (direction < 0);
-	
-	# Play animations
-	if is_on_floor():
-		if direction == 0:
-			animated_sprite.play("idle")
-		else:
-			if is_sprinting:
-				animated_sprite.play("sprint")
+	if animated_sprite:
+		# Flip the sprite. Checking equality for a float is naughty, but in this
+		# case the consequence of it being wrong is very low. It will just flip
+		# the sprite to be forward facing when at rest. In practice, it doesn't
+		# seem to ever happen anyway, since the 0.0 value is set from get_axis above.
+		if direction != 0.0:
+			animated_sprite.flip_h = (direction < 0);
+		
+		# Play animations
+		if is_on_floor():
+			if direction == 0:
+				animated_sprite.play("idle")
 			else:
-				animated_sprite.play("run")
-	elif not can_double_jump: # Has already double jumped
-		animated_sprite.play("roll")
-	else:
-		animated_sprite.play("jump")
+				if is_sprinting:
+					animated_sprite.play("sprint")
+				else:
+					animated_sprite.play("run")
+		elif not can_double_jump: # Has already double jumped
+			animated_sprite.play("roll")
+		else:
+			animated_sprite.play("jump")
 	
 	# Apply movement
 	if direction:
