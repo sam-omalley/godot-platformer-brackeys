@@ -1,14 +1,13 @@
 extends CharacterBody2D
 
-
-const SPEED = 130.0
-const JUMP_VELOCITY = -300.0
+@export var movement_speed: float = 130.0
+@export var jump_force: float = -300.0
+@export var jump_slow: float = 0.4
+@export var coyote_time: float = 0.2
+@export var jump_buffer_time: float = 0.1
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var jump_sound: AudioStreamPlayer2D = $JumpSound
-
-@export var coyote_time: float = 0.2
-@export var jump_buffer_time: float = 0.1
 
 var was_on_floor: bool = false
 var can_coyote_jump: bool = false
@@ -39,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		# platforms after a double jump (and negating coyote time + double jump).
 		can_double_jump = true
 		if jump_pressed:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_force
 			jump_pressed = false
 			jump_buffer_timer.stop()
 			
@@ -50,14 +49,14 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor() or can_coyote_jump:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_force
 			
 			can_coyote_jump = false
 			
 			# Play jump sound
 			jump_sound.play()
 		elif can_double_jump:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_force
 			
 			can_double_jump = false
 			
@@ -66,7 +65,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			jump_pressed = true
 			jump_buffer_timer.start(jump_buffer_time)
-			
+	
+	if Input.is_action_just_released("jump"):
+		velocity.y *= jump_slow
 		
 
 	# Get the input direction and handle the movement/deceleration.
@@ -89,9 +90,9 @@ func _physics_process(delta: float) -> void:
 	
 	# Apply movement
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * movement_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	
 	was_on_floor = is_on_floor();
 	move_and_slide()
