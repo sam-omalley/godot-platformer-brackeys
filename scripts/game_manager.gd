@@ -2,11 +2,12 @@ extends Node
 
 var score : int = 0;
 
-@onready var score_label: Label = $ScoreLabel
+signal score_changed(score: int)
 
-func add_point():
-	score += 1;
-	if score == 1:
-		score_label.text = "You collected 1 coin."
-	else:
-		score_label.text = "You collected %s coins." % score;
+func add_point() -> void:
+	score += 1
+	score_changed.emit(score)
+
+func reset_score() -> void:
+	score = 0
+	score_changed.emit(score)
