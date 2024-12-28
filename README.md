@@ -11,6 +11,9 @@ This platformer has been created following Brackey's Godot tutorial:
 ## ToDo
 
 - [x] Add parallax to tiles
+- [x] Fix jump dampening bug that slows our fall when the jump key is released
+- [x] Set up terrain tiles
+- [ ] Configure camera zoom, or fix the window size
 - [ ] Add particle emitters
 	- [ ] On landing
 	- [ ] While sprinting
@@ -19,7 +22,7 @@ This platformer has been created following Brackey's Godot tutorial:
 	- [ ] Game Manager should properly manage and own death state
 - [ ] Add sound effects for a hit
 - [ ] Enemy kill
-- [ ] Programatically extend the background plate
+- [-] Programatically extend the background plate
 - [ ] Spawn enemies when close, not on load
 - [ ] Add a completion point and another level
 - [ ] Move music management into GameManager
