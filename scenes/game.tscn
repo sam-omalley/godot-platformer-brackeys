@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://rv7w4r5sximy"]
+[gd_scene load_steps=14 format=4 uid="uid://rv7w4r5sximy"]
 
 [ext_resource type="PackedScene" uid="uid://bb3tvmaavnwi" path="res://scenes/player.tscn" id="1_8upnx"]
 [ext_resource type="TileSet" uid="uid://c0fgtpg6ym8ly" path="res://assets/sprites/world_tileset.tres" id="1_le51j"]
 [ext_resource type="Script" path="res://scripts/parallax.gd" id="2_3gxv5"]
 [ext_resource type="PackedScene" uid="uid://1tptnfg7sw14" path="res://scenes/platform.tscn" id="3_dc823"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="4_j6i1e"]
 [ext_resource type="PackedScene" uid="uid://74m12g3745vh" path="res://scenes/killzone.tscn" id="5_114us"]
 [ext_resource type="Script" path="res://scripts/labels.gd" id="6_c23ck"]
 [ext_resource type="FontFile" uid="uid://cstqwwf4icm0t" path="res://assets/fonts/PixelOperator8.ttf" id="8_gklr5"]
@@ -74,6 +75,7 @@ zoom = Vector2(4, 4)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
+script = ExtResource("4_j6i1e")
 
 [node name="Killzone" parent="." instance=ExtResource("5_114us")]
 position = Vector2(121, 139)

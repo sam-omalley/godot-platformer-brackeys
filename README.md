@@ -13,7 +13,7 @@ This platformer has been created following Brackey's Godot tutorial:
 - [x] Add parallax to tiles
 - [x] Fix jump dampening bug that slows our fall when the jump key is released
 - [x] Set up terrain tiles
-- [ ] Configure camera zoom, or fix the window size
+- [x] Configure camera zoom, or fix the window size
 - [ ] Add particle emitters
 	- [ ] On landing
 	- [ ] While sprinting
