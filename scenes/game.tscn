@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://rv7w4r5sximy"]
+[gd_scene load_steps=16 format=4 uid="uid://rv7w4r5sximy"]
 
 [ext_resource type="PackedScene" uid="uid://bb3tvmaavnwi" path="res://scenes/player.tscn" id="1_8upnx"]
 [ext_resource type="TileSet" uid="uid://c0fgtpg6ym8ly" path="res://assets/sprites/world_tileset.tres" id="1_le51j"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/labels.gd" id="6_c23ck"]
 [ext_resource type="FontFile" uid="uid://cstqwwf4icm0t" path="res://assets/fonts/PixelOperator8.ttf" id="8_gklr5"]
 [ext_resource type="FontFile" uid="uid://jn37lpctowoq" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="9_5fwi5"]
+[ext_resource type="Shader" path="res://god.gdshader" id="10_ie3q3"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_54mxc"]
 
@@ -49,6 +50,22 @@ _data = {
 "RESET": SubResource("Animation_yfcs0"),
 "move": SubResource("Animation_2g2vd")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_na2pq"]
+shader = ExtResource("10_ie3q3")
+shader_parameter/angle = -0.1
+shader_parameter/position = 0.1
+shader_parameter/spread = 0.442
+shader_parameter/cutoff = 0.182
+shader_parameter/falloff = 0.879
+shader_parameter/edge_fade = 0.181
+shader_parameter/speed = 2.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
 
 [node name="Game" type="Node2D"]
 
@@ -157,6 +174,30 @@ theme_override_fonts/font = ExtResource("8_gklr5")
 theme_override_font_sizes/font_size = 8
 text = "Greate job!"
 horizontal_alignment = 1
+
+[node name="GodLight" type="ColorRect" parent="."]
+z_index = 3
+material = SubResource("ShaderMaterial_na2pq")
+offset_left = -514.0
+offset_top = -214.0
+offset_right = 392.0
+offset_bottom = 258.0
+metadata/_edit_lock_ = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="GodLight"]
+position = Vector2(441, 188)
+amount = 18
+lifetime = 10.0
+speed_scale = 4.0
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(49.64, 63.58)
+direction = Vector2(4.36, 7.25)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 0.8
+initial_velocity_max = 0.8
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="TileMap/Foreground/Coin" to="TileMap/Foreground/Coin" method="_on_body_entered"]
 [connection signal="body_entered" from="TileMap/Foreground/@Area2D@189412" to="TileMap/Foreground/@Area2D@189412" method="_on_body_entered"]
