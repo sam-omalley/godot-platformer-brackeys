@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		sprite.flip_h = false
 		
 	if ray_cast_down.is_colliding():
-		var collision = ray_cast_down.get_collision_point()
+		var collision: Vector2 = ray_cast_down.get_collision_point()
 		position.y = collision.y + y_offset
 
 

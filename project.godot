@@ -20,6 +20,12 @@ config/icon="res://icon.svg"
 GameManager="*res://scenes/game_manager.tscn"
 Music="*res://scenes/music.tscn"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/inferred_declaration=2
+gdscript/warnings/confusable_local_declaration=2
+
 [input]
 
 jump={

@@ -28,7 +28,7 @@ func _ready() -> void:
 	GameManager.dead.connect(die)
 	jump_buffer_timer = Timer.new()
 	jump_buffer_timer.one_shot = true
-	jump_buffer_timer.timeout.connect(func(): jump_pressed = false)
+	jump_buffer_timer.timeout.connect(func() -> void: jump_pressed = false)
 	add_child(jump_buffer_timer)
 	
 
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		if was_on_floor and velocity.y >= 0:
 			can_coyote_jump = true
-			get_tree().create_timer(coyote_time).timeout.connect(func(): can_coyote_jump = false)
+			get_tree().create_timer(coyote_time).timeout.connect(func() -> void: can_coyote_jump = false)
 		elif was_on_floor and velocity.y < 0:
 			can_double_jump = true
 			

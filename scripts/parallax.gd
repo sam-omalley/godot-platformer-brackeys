@@ -11,9 +11,9 @@ func _ready() -> void:
 	previous_camera_position = get_viewport().get_camera_2d().get_screen_center_position()
 
 func _process(delta: float) -> void:
-	for i in range(len(layers)):
+	for i: int in range(len(layers)):
 		var parallax: Vector2 = (get_viewport().get_camera_2d().get_screen_center_position() - previous_camera_position) * parallax_scales[i]
-		var layer_target_pos = layers[i].position + parallax
+		var layer_target_pos: Vector2 = layers[i].position + parallax
 		layers[i].position = lerp(layers[i].position, layer_target_pos, smoothing * delta)
 
 	previous_camera_position = get_viewport().get_camera_2d().get_screen_center_position()
